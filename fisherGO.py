@@ -4,10 +4,10 @@ import fisher
 import xlsxwriter
 import argparse
 
-parser=argparse.ArgumentParser(description='Find the enriched terms within a list of genes. This programme works with GO, IPRO and KEGG annotations.')
-parser.add_argument('-a','--alpha',type=float,metavar='',nargs='?', default=0.05,help='Desired alpha for the Fisher\'s exact test. Its default value is 0.05.')
-parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='List of genes to analyse.')
-parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='Annotated genome(s).')
+parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of genes, given the annotated genome of the organism. It works with GO, IPRO and KEGG annotations.')
+parser.add_argument('-a','--alpha',type=float,metavar='', default=0.05,help='desired alpha for the Fisher\'s exact test. Its default value is 0.05.')
+parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='list of genes to analyse.')
+parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated genome(s).')
 args=parser.parse_args()
 
 print '\n'
