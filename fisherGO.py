@@ -1,4 +1,3 @@
-from sys import argv
 import re
 import fisher
 import xlsxwriter
@@ -21,16 +20,19 @@ for annotated in args.tab:
         y=2
         type='GO'
         re_term=re.compile('([^\t]+)\t[^\t]+\t([^\t]+)\t[^\t]+\t([^\t]+)\n')
-    if 'ecNum' in header:
+    elif 'ecNum' in header:
         x=2
         y=3
         type='KEGG'
         re_term=re.compile('([^\t]+)\t([^\t]+)\t[^\t]+\t[^\t]+\t[^\t]+\t[^\t]+\t([^\t]+)\s')
-    else:
+    elif 'iprId' in header:
         x=2
         y=3
         type='IPRO'
         re_term=re.compile('([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]+\t[^\t]+\s')
+    else:
+        print 'Not compatible format'
+        quit()
 
     #This loops creates a dictionary with annotation terms as keys and protein IDs as entries
     for line in annotated:
@@ -49,7 +51,7 @@ for annotated in args.tab:
                 dictionary[key]=[entry]
                 descriptions[key]=desc
 
-    workbook = xlsxwriter.Workbook(annotated.name+'_'+type+'_enrichment.xlsx')
+    workbook = xlsxwriter.Workbook(args.list.name+'_'+type+'_enrichment.xlsx')
     enriched_sheet=workbook.add_worksheet('Enriched terms')
     not_enriched_sheet=workbook.add_worksheet('Not enriched terms')
     enriched_terms=[]
