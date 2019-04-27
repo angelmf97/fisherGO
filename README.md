@@ -20,12 +20,12 @@ fisherGO.py [-h] [-a] -l  -t  [...]
 ```
 
 The commands available are the following ones:
-<ul>
-<li>-h, --help                          `<addr>`show this help message and exit.
-<li>-a , --alpha                        `<addr>`desired alpha for the Fisher's exact test. Its default value is 0.05.<\li>
-<li>-l , --list                         `<addr>`list of genes to analyse.
-<li>-t  [ ...], --tab  [ ...]           `<addr>`annotated genome(s).
-<ul>
+|        Command        	|                                Function                               	|
+|:---------------------:	|:---------------------------------------------------------------------:	|
+| -h, --help            	| show this help message and exit.                                      	|
+| -a, --alpha           	| desired alpha for the Fisher's exact test. Its default value is 0.05. 	|
+| -l, --list            	| list of genes to analyse.                                             	|
+| -t[ ...], --tab[ ...] 	| annotated genome(s).                                                  	|
 
 Usage example:
 ```
