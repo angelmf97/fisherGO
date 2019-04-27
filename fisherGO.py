@@ -30,10 +30,10 @@ for annotated in args.tab:
     elif 'iprId' in header:
         x=2
         y=3
-        type='IPRO'
+        type='IPR'
         re_term=re.compile('([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]+\t[^\t]+\s')
     else:
-        print 'Not compatible format'
+        print 'Not supported file format'
         quit()
 
     #This loops creates a dictionary with annotation terms as keys and protein IDs as entries
