@@ -20,6 +20,7 @@ fisherGO.py [-h] [-a] -l  -t  [...]
 ```
 
 The commands available are the following ones:
+
 |        Command        |                                Function                               |
 |-----------------------|-----------------------------------------------------------------------|
 | -h, --help            | show this help message and exit.                                      |
