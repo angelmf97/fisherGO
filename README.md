@@ -11,7 +11,7 @@ fisherGO.py -h
 ```
 or
 ```
-sonar.py --help
+fisherGO.py --help
 ```
 for usage instructions.
 
