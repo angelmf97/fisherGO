@@ -15,6 +15,7 @@ print '\n'
 for annotated in args.tab:
     dictionary={}
     descriptions={}
+    pathways={}
     total_proteins=0
     header=annotated.readline()
     if 'gotermId' in header:
@@ -26,7 +27,7 @@ for annotated in args.tab:
         x=2
         y=3
         type='KEGG'
-        re_term=re.compile('([^\t]+)\t([^\t]+)\t[^\t]+\t[^\t]+\t[^\t]+\t[^\t]+\t([^\t]+)\s')
+        re_term=re.compile('([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]+\t[^\t]+\t[^\t]+\t([^\t]+)\s')
     elif 'iprId' in header:
         x=2
         y=3
@@ -43,6 +44,8 @@ for annotated in args.tab:
             key=terms.group(x)
             entry=terms.group(1)
             desc=terms.group(y)
+            if type=='KEGG':
+                path=terms.group(4)
             total_proteins+=1
             if key in dictionary:
                 if entry in dictionary[key]:
@@ -52,6 +55,8 @@ for annotated in args.tab:
             else:
                 dictionary[key]=[entry]
                 descriptions[key]=desc
+                if type=='KEGG':
+                    pathways[key]=path
 
     sheet=workbook.add_worksheet(type+' enriched terms')
     enriched_terms=[]
@@ -61,11 +66,19 @@ for annotated in args.tab:
     str=args.list.read()
     row=0
     col=0
-    sheet.write(row,col,'Term')
-    sheet.write(row,col+1,'Description')
-    sheet.write(row,col+2,'Number of proteins')
-    sheet.write(row,col+3,'Protein IDs')
-    sheet.write(row,col+4,'p-value')
+    if type=='KEGG':
+        sheet.write(row,col,'Term')
+        sheet.write(row,col+1,'Description')
+        sheet.write(row,col+2,'Pathway')
+        sheet.write(row,col+3,'Number of proteins')
+        sheet.write(row,col+4,'Protein IDs')
+        sheet.write(row,col+5,'p-value')
+    else:
+        sheet.write(row,col,'Term')
+        sheet.write(row,col+1,'Description')
+        sheet.write(row,col+2,'Number of proteins')
+        sheet.write(row,col+3,'Protein IDs')
+        sheet.write(row,col+4,'p-value')
     row+=1
 
     for key in dictionary:
@@ -95,9 +108,17 @@ for annotated in args.tab:
                     flag=1
                 else:
                     proteinIDs+=(', '+n)
-            sheet.write(row,col+2,selected_property)
-            sheet.write(row,col+3,proteinIDs)
-            sheet.write(row,col+4,p.right_tail)
+
+
+            if type=='KEGG':
+                sheet.write(row,col+2,pathways[key])
+                sheet.write(row,col+3,selected_property)
+                sheet.write(row,col+4,proteinIDs)
+                sheet.write(row,col+5,p.right_tail)
+            else:
+                sheet.write(row,col+2,selected_property)
+                sheet.write(row,col+3,proteinIDs)
+                sheet.write(row,col+4,p.right_tail)
             row+=1
         else:
             not_enriched_terms+=1
