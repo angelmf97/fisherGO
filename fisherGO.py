@@ -8,28 +8,25 @@ import argparse
 
 parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of proteins, given the annotated proteome of the organism. It works with GO, IPRO and KEGG annotations.')
 parser.add_argument('-a','--alpha',type=float,metavar='', default=0.05,help='desired alpha for the Fisher\'s exact test. Its default value is 0.05.')
-parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='list of proteins to analyse.')
+parser.add_argument('-sub','--subset',type=argparse.FileType('r'),metavar='',required=True,help='list of proteins to analyse.')
+parser.add_argument('-s','--set',type=argparse.FileType('r'),metavar='',required=True,help='list of proteins to analyse.')
 parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated proteome(s).')
-parser.add_argument('-o','--output',type=str,metavar='',default='enrichment.xlsx',nargs=1,required=False,help='optional output file name (relative or absolute path).')
+parser.add_argument('-o','--output',type=str,metavar='',default='enrichment',required=False,help='optional output file name (relative or absolute path).')
 
 args=parser.parse_args()
 
 def main():
 
-    workbook = xlsxwriter.Workbook(args.list.name+'_enrichment.xlsx')
+    workbook = xlsxwriter.Workbook(args.output+'.xlsx')
 
     print '\n'
 
-    total_proteins=0
-    selected_total=0
+    subsetIDs=re.findall('>.+\|.+\|(.+)\|',args.subset.read())
+    selected_total=len(subsetIDs)
+    args.subset.seek(0)
 
-    for line in args.list:
-        re_list=re.compile('>jgi\|.+')
-        search=re_list.search(line)
-        if search:
-            selected_total+=1
-    args.list.seek(0)
-
+    setIDs=re.findall('>.+\|.+\|(.+)\|',args.set.read())
+    total_proteins=len(setIDs)
     for annotated in args.tab:
 
         dictionary={}
@@ -61,8 +58,18 @@ def main():
             quit()
 
         #This loop creates a dictionary with annotation terms as keys and protein IDs as entries
-        for line in annotated:
 
+        for line in annotated:
+            ding=0
+            if args.set:
+                for ID in setIDs:
+                    if ID in line:
+                        ding=1
+                        break
+                    else:
+                        continue
+            	if ding==0:
+            			continue
             terms=re_term.search(line)
 
             if terms:
@@ -72,8 +79,6 @@ def main():
 
                 if type=='KEGG':
                     path=terms.group(4)
-                total_proteins+=1
-
                 if key in dictionary:
                     if entry in dictionary[key]:
                         continue
@@ -91,7 +96,7 @@ def main():
         enriched_terms=[]
         not_enriched_terms=0
         nonselected_total=total_proteins-selected_total
-        str=args.list.read()
+        str=args.subset.read()
         row=0
         col=0
 
@@ -166,7 +171,7 @@ def main():
                 not_enriched_terms+=1
                 continue
 
-        args.list.seek(0)
+        args.subset.seek(0)
 
         print type, 'terms enrichment analysis.'
         print '-'*25
@@ -175,7 +180,7 @@ def main():
         print 'Total terms analysed:', len(dictionary)
         print '\n'
 
-        workbook.close()
+    workbook.close()
 
 
 if __name__=='__main__':
