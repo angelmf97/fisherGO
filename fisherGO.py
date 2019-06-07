@@ -6,27 +6,30 @@ import argparse
 
 
 
-parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of proteins, given the annotated proteome of the organism. It works with GO, IPRO and KEGG annotations.')
+parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of genes/proteins, given the annotated genome/proteome of the organism. It works with GO, IPRO and KEGG annotations.')
 parser.add_argument('-a','--alpha',type=float,metavar='', default=0.05,help='desired alpha for the Fisher\'s exact test. Its default value is 0.05.')
-parser.add_argument('-sub','--subset',type=argparse.FileType('r'),metavar='',required=True,help='list of proteins to analyse.')
-parser.add_argument('-s','--set',type=argparse.FileType('r'),metavar='',required=True,help='list of proteins to analyse.')
-parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated proteome(s).')
-parser.add_argument('-o','--output',type=str,metavar='',default='enrichment',required=False,help='optional output file name (relative or absolute path).')
+parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='group of genes/proteins of interest, in FASTA format.')
+parser.add_argument('-s','--set',type=argparse.FileType('r'),metavar='',required=True,help='group of genes/proteins to compare the genes of interest with, in FASTA format.')
+parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated genome(s)/proteome(s).')
+parser.add_argument('-o','--output',type=str,metavar='',default='enrichment',required=False,help='optional output file name (relative or absolute path). The .xlsx extension is added automatically.')
 
 args=parser.parse_args()
 
 def main():
-
-    workbook = xlsxwriter.Workbook(args.output+'.xlsx')
+    outname=args.output.replace('.xlsx','')
+    workbook = xlsxwriter.Workbook(outname+'.xlsx')
 
     print '\n'
-
-    subsetIDs=re.findall('>.+\|.+\|(.+)\|',args.subset.read())
+    print 'Performing the functional enrichment analysis, please wait.'
+    print '\n'
+    
+    subsetIDs=re.findall('>.+\|.+\|(.+)\|',args.list.read())
     selected_total=len(subsetIDs)
-    args.subset.seek(0)
-
+    args.list.seek(0)
+    
     setIDs=re.findall('>.+\|.+\|(.+)\|',args.set.read())
     total_proteins=len(setIDs)
+    
     for annotated in args.tab:
 
         dictionary={}
@@ -59,32 +62,26 @@ def main():
 
         #This loop creates a dictionary with annotation terms as keys and protein IDs as entries
 
-        for line in annotated:
-            ding=0
-            if args.set:
-                for ID in setIDs:
-                    if ID in line:
-                        ding=1
-                        break
-                    else:
-                        continue
-            	if ding==0:
-            			continue
-            terms=re_term.search(line)
-
+	
+        for line in annotated: 
+            
+	    terms=re_term.search(line)
+	              
             if terms:
+	    	if terms.group(1) not in setIDs:
+		    continue 
                 key=terms.group(x)
                 entry=terms.group(1)
                 desc=terms.group(y)
 
                 if type=='KEGG':
                     path=terms.group(4)
+
                 if key in dictionary:
                     if entry in dictionary[key]:
                         continue
                     else:
                         dictionary[key].append(entry)
-
                 else:
                     dictionary[key]=[entry]
                     descriptions[key]=desc
@@ -96,7 +93,7 @@ def main():
         enriched_terms=[]
         not_enriched_terms=0
         nonselected_total=total_proteins-selected_total
-        str=args.subset.read()
+        str=args.list.read()
         row=0
         col=0
 
@@ -171,7 +168,7 @@ def main():
                 not_enriched_terms+=1
                 continue
 
-        args.subset.seek(0)
+        args.list.seek(0)
 
         print type, 'terms enrichment analysis.'
         print '-'*25
