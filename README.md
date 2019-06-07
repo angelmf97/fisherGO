@@ -1,6 +1,6 @@
 # fisherGO
 
-This programme is used to determine the enriched annotation terms within a list of genes, using the Fisher's exact test with the Bonferroni correction. Given the annotated genome (GO, IPRO or KEGG) of the organism, a list of selected genes, and a set of genes to compare them with, the programme creates .xlsx files containing the enriched terms with their description and p-values.
+This programme is used to determine the enriched annotation terms within a list of genes/proteins, using the Fisher's exact test with the Bonferroni correction. Given the annotated genome/proteome (GO, IPRO or KEGG) of the organism, a list of selected genes/proteins, and a set of genes/proteins to compare them with, the programme creates .xlsx files containing the enriched terms with their description and p-values.
 
 
 # Usage
