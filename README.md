@@ -33,7 +33,7 @@ The commands available are the following ones:
 
 Usage example:
 ```
-fisherGO.py -a 0.01 -l example.fasta -t go.tab ipr.tab kegg.tab
+fisherGO.py -a 0.01 -l examplelist.fasta -s exampleset.fasta -t go.tab ipr.tab kegg.tab
 ```
 The example files can be found in this GitHub repository.
 
