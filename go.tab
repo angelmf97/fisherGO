@@ -1,0 +1,41 @@
+#proteinId	gotermId	goName	gotermType	goAcc
+1	9321	integral to membrane	cellular_component	GO:0016021
+2	9321	integral to membrane	cellular_component	GO:0016021
+3	9321	integral to membrane	cellular_component	GO:0016021
+4	9321	integral to membrane	cellular_component	GO:0016021
+5	9321	integral to membrane	cellular_component	GO:0016021
+1	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+2	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+3	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+4	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+5	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+6	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+9	3736	ATP binding	molecular_function	GO:0005524
+9	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
+9	2792	helicase activity	molecular_function	GO:0004386
+10	5707	microtubule binding	molecular_function	GO:0008017
+11	3727	protein binding	molecular_function	GO:0005515
+11	5239	cell communication	biological_process	GO:0007154
+11	17271	phosphoinositide binding	molecular_function	GO:0035091
+14	5939	zinc ion binding	molecular_function	GO:0008270
+14	9710	oxidoreductase activity	molecular_function	GO:0016491
+14	5788	alcohol dehydrogenase (NADP+) activity	molecular_function	GO:0008106
+17	2744	glucan 1,3-beta-glucosidase activity	molecular_function	GO:0004338
+19	2196	transcription factor activity	molecular_function	GO:0003700
+19	3838	nucleus	cellular_component	GO:0005634
+19	4504	regulation of transcription, DNA-dependent	biological_process	GO:0006355
+19	5939	zinc ion binding	molecular_function	GO:0008270
+21	2176	DNA binding	molecular_function	GO:0003677
+21	3838	nucleus	cellular_component	GO:0005634
+21	4499	transcription	biological_process	GO:0006350
+21	5939	zinc ion binding	molecular_function	GO:0008270
+24	2290	catalytic activity	molecular_function	GO:0003824
+24	5830	metabolic process	biological_process	GO:0008152
+24	3838	nucleus	cellular_component	GO:0005634
+24	5814	transcription factor binding	molecular_function	GO:0008134
+26	2554	3',5'-cyclic-AMP phosphodiesterase activity	molecular_function	GO:0004115
+26	4360	cAMP catabolic process	biological_process	GO:0006198
+26	2553	3',5'-cyclic-nucleotide phosphodiesterase activity	molecular_function	GO:0004114
+26	24589	regulation of cyclic-nucleotide phosphodiesterase activity	biological_process	GO:0051342
+27	9985	hydrolase activity	molecular_function	GO:0016787
+28	5716	ATP-dependent helicase activity	molecular_function	GO:0008026
