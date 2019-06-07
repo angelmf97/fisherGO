@@ -6,12 +6,12 @@ import argparse
 
 
 
-parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of genes/proteins, given the annotated genome/proteome of the organism. It works with GO, IPRO and KEGG annotations.')
-parser.add_argument('-a','--alpha',type=float,metavar='', default=0.05,help='desired alpha for the Fisher\'s exact test. Its default value is 0.05.')
-parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='group of genes/proteins of interest, in FASTA format.')
-parser.add_argument('-s','--set',type=argparse.FileType('r'),metavar='',required=True,help='group of genes/proteins to compare the genes of interest with, in FASTA format.')
-parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated genome(s)/proteome(s).')
-parser.add_argument('-o','--output',type=str,metavar='',default='enrichment',required=False,help='optional output file name (relative or absolute path). The .xlsx extension is added automatically.')
+parser=argparse.ArgumentParser(description='This programme is used to find the enriched annotation terms within a list of genes/proteins, given the annotated genome/proteome of the organism. It works with GO, IPRO and KEGG annotations. The annotations must be written in the format used by the JGI (Joint Genome Institute).')
+parser.add_argument('-a','--alpha',type=float,metavar='', default=0.05,help='desired alpha for the Fisher\'s exact test. Its default value is 0.05')
+parser.add_argument('-l','--list',type=argparse.FileType('r'),metavar='',required=True,help='list of genes/proteins of interest, in FASTA format')
+parser.add_argument('-s','--set',type=argparse.FileType('r'),metavar='',required=True,help='group of genes/proteins to compare the genes of interest with, in FASTA format')
+parser.add_argument('-t','--tab',type=argparse.FileType('r'),metavar='',nargs='+',required=True,help='annotated genome(s)/proteome(s)')
+parser.add_argument('-o','--output',type=str,metavar='',default='enrichment',required=False,help='optional output file name (relative or absolute path). The .xlsx extension is added automatically')
 
 args=parser.parse_args()
 
