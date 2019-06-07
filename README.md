@@ -37,3 +37,6 @@ fisherGO.py -a 0.01 -l examplelist.fasta -s exampleset.fasta -t go.tab ipr.tab k
 ```
 The example files can be found in this GitHub repository.
 
+# Requisites
+  * Python 2.
+
