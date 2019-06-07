@@ -149,7 +149,7 @@ def main():
                         proteinIDs+=n
                         flag=1
                     else:
-                        proteinIDs+=(', '+n)
+                        proteinIDs+=('|'+n)
 
 
                 if type=='KEGG':
