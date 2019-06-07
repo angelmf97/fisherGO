@@ -25,10 +25,10 @@ The commands available are the following ones:
 | Command                   | Function                                                                                           |
 |---------------------------|----------------------------------------------------------------------------------------------------|
 | -h, --help                | show this help message and exit.                                                                   |
-| -a , --alpha              | desired alpha for the Fisher's exact test. Its default value is 0.05                               |
-| -l , --list               | list of genes/proteins of interest, in FASTA format                                                |
-| -s , --set                | group of genes/proteins to compare the genes of interest with, in FASTA format                     |
-| -t  [ ...], --tab  [ ...] | annotated genome(s)/proteome(s)                                                                    |
+| -a , --alpha              | desired alpha for the Fisher's exact test. Its default value is 0.05.                               |
+| -l , --list               | list of genes/proteins of interest, in FASTA format.                                                |
+| -s , --set                | group of genes/proteins to compare the genes of interest with, in FASTA format.                     |
+| -t  [ ...], --tab  [ ...] | annotated genome(s)/proteome(s).                                                                    |
 | -o , --output             | optional output file name (relative or absolute path). The .xlsx extension is added automatically. |
 
 Usage example:
